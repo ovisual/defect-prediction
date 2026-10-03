@@ -1,0 +1,173 @@
+VIF of REDUCED set (log1p):
+ lloc             9.8
+cc_max           3.7
+comments         2.6
+fan_out          2.0
+lines_added      9.0
+n_authors        5.5
+prior_defects    4.5
+pooled REDUCED          RandomForest       cw     AUC=0.835  (25s)
+loro   REDUCED          RandomForest       cw     AUC=0.840  (12s)
+pooled REDUCED          RandomForest       smote  AUC=0.835  (15s)
+loro   REDUCED          RandomForest       smote  AUC=0.845  (13s)
+pooled REDUCED          NaiveBayes         cw     AUC=0.826  (1s)
+loro   REDUCED          NaiveBayes         cw     AUC=0.844  (1s)
+pooled REDUCED          NaiveBayes         smote  AUC=0.826  (2s)
+loro   REDUCED          NaiveBayes         smote  AUC=0.844  (1s)
+pooled REDUCED          LogisticRegression cw     AUC=0.838  (2s)
+loro   REDUCED          LogisticRegression cw     AUC=0.852  (1s)
+pooled REDUCED          LogisticRegression smote  AUC=0.838  (2s)
+loro   REDUCED          LogisticRegression smote  AUC=0.851  (2s)
+pooled REDUCED          DecisionTree       cw     AUC=0.818  (2s)
+loro   REDUCED          DecisionTree       cw     AUC=0.835  (1s)
+pooled REDUCED          DecisionTree       smote  AUC=0.817  (2s)
+loro   REDUCED          DecisionTree       smote  AUC=0.830  (2s)
+pooled REDUCED          SVM                cw     AUC=0.835  (5s)
+loro   REDUCED          SVM                cw     AUC=0.819  (4s)
+pooled REDUCED          SVM                smote  AUC=0.833  (7s)
+loro   REDUCED          SVM                smote  AUC=0.829  (5s)
+pooled SIZE             LogisticRegression cw     AUC=0.802  (1s)
+loro   SIZE             LogisticRegression cw     AUC=0.852  (1s)
+pooled STATIC           LogisticRegression cw     AUC=0.837  (1s)
+loro   STATIC           LogisticRegression cw     AUC=0.854  (2s)
+pooled PROCESS          LogisticRegression cw     AUC=0.798  (2s)
+loro   PROCESS          LogisticRegression cw     AUC=0.826  (1s)
+pooled REDUCED_NO_PRIOR LogisticRegression cw     AUC=0.836  (2s)
+loro   REDUCED_NO_PRIOR LogisticRegression cw     AUC=0.848  (1s)
+pooled ALL14            LogisticRegression cw     AUC=0.839  (2s)
+loro   ALL14            LogisticRegression cw     AUC=0.846  (2s)
+pooled SIZE             RandomForest       cw     AUC=0.768  (13s)
+loro   SIZE             RandomForest       cw     AUC=0.783  (10s)
+pooled STATIC           RandomForest       cw     AUC=0.830  (13s)
+loro   STATIC           RandomForest       cw     AUC=0.838  (12s)
+pooled PROCESS          RandomForest       cw     AUC=0.784  (13s)
+loro   PROCESS          RandomForest       cw     AUC=0.801  (10s)
+pooled REDUCED_NO_PRIOR RandomForest       cw     AUC=0.833  (14s)
+loro   REDUCED_NO_PRIOR RandomForest       cw     AUC=0.842  (10s)
+pooled ALL14            RandomForest       cw     AUC=0.835  (16s)
+loro   ALL14            RandomForest       cw     AUC=0.837  (19s)
+
+======================================================================
+MAIN COMPARISON (pooled, REDUCED features)
+======================================================================
+                              precision  recall     f1    auc
+model              imbalance                                 
+DecisionTree       cw             0.548   0.768  0.633  0.818
+                   smote          0.524   0.829  0.641  0.817
+LogisticRegression cw             0.573   0.786  0.661  0.838
+                   smote          0.571   0.778  0.657  0.838
+NaiveBayes         cw             0.574   0.746  0.647  0.826
+                   smote          0.559   0.783  0.651  0.826
+RandomForest       cw             0.585   0.745  0.654  0.835
+                   smote          0.600   0.708  0.648  0.835
+SVM                cw             0.570   0.773  0.654  0.835
+                   smote          0.555   0.791  0.651  0.833
+
+ABLATION (pooled, class weights): mean AUC by feature set
+model             LogisticRegression  RandomForest
+features                                          
+ALL14                          0.839         0.835
+PROCESS                        0.798         0.784
+REDUCED                        0.838         0.835
+REDUCED_NO_PRIOR               0.836         0.833
+SIZE                           0.802         0.768
+STATIC                         0.837         0.830
+
+======================================================================
+MAIN COMPARISON (loro, REDUCED features)
+======================================================================
+                              precision  recall     f1    auc
+model              imbalance                                 
+DecisionTree       cw             0.584   0.766  0.632  0.835
+                   smote          0.563   0.780  0.616  0.830
+LogisticRegression cw             0.583   0.781  0.651  0.852
+                   smote          0.597   0.786  0.663  0.851
+NaiveBayes         cw             0.606   0.736  0.636  0.844
+                   smote          0.599   0.776  0.652  0.844
+RandomForest       cw             0.609   0.723  0.633  0.840
+                   smote          0.610   0.703  0.630  0.845
+SVM                cw             0.573   0.758  0.633  0.819
+                   smote          0.571   0.762  0.635  0.829
+
+ABLATION (loro, class weights): mean AUC by feature set
+model             LogisticRegression  RandomForest
+features                                          
+ALL14                          0.846         0.837
+PROCESS                        0.826         0.801
+REDUCED                        0.852         0.840
+REDUCED_NO_PRIOR               0.848         0.842
+SIZE                           0.852         0.783
+STATIC                         0.854         0.838
+
+LORO AUC per held-out repo (REDUCED, class weights):
+model         DecisionTree  LogisticRegression  NaiveBayes  RandomForest   SVM
+fold                                                                          
+aiohttp               0.90                0.89        0.86          0.90  0.88
+matplotlib            0.90                0.92        0.91          0.89  0.90
+pip                   0.86                0.87        0.88          0.85  0.87
+poetry                0.83                0.84        0.84          0.84  0.84
+pytest                0.82                0.87        0.86          0.84  0.84
+requests              0.79                0.86        0.80          0.80  0.66
+scikit-learn          0.80                0.84        0.84          0.83  0.84
+scrapy                0.79                0.74        0.75          0.76  0.73
+
+======================================================================
+STATISTICAL TESTS (AUC per fold, REDUCED features)
+======================================================================
+Note: repeated-CV folds overlap, so p-values are optimistic. Treat as supporting evidence.
+
+[pooled / cw] Friedman chi2=9.20, p=0.0563; best=LogisticRegression
+   LogisticRegression vs DecisionTree         p=0.0488  Holm-adjusted=0.1953
+   LogisticRegression vs NaiveBayes           p=0.0840  Holm-adjusted=0.2520
+   LogisticRegression vs RandomForest         p=0.3223  Holm-adjusted=0.6445
+   LogisticRegression vs SVM                  p=0.3750  Holm-adjusted=0.6445
+
+[pooled / smote] Friedman chi2=15.84, p=0.0032; best=LogisticRegression
+   LogisticRegression vs DecisionTree         p=0.0137  Holm-adjusted=0.0547
+   LogisticRegression vs NaiveBayes           p=0.0840  Holm-adjusted=0.2520
+   LogisticRegression vs RandomForest         p=0.4316  Holm-adjusted=0.4316
+   LogisticRegression vs SVM                  p=0.1602  Holm-adjusted=0.3203
+
+[loro / cw] Friedman chi2=4.96, p=0.2918; best=LogisticRegression
+   LogisticRegression vs DecisionTree         p=0.1953  Holm-adjusted=0.5859
+   LogisticRegression vs NaiveBayes           p=0.5469  Holm-adjusted=0.5859
+   LogisticRegression vs RandomForest         p=0.2500  Holm-adjusted=0.5859
+   LogisticRegression vs SVM                  p=0.0547  Holm-adjusted=0.2188
+
+[loro / smote] Friedman chi2=6.10, p=0.1918; best=LogisticRegression
+   LogisticRegression vs DecisionTree         p=0.1484  Holm-adjusted=0.4453
+   LogisticRegression vs NaiveBayes           p=0.7422  Holm-adjusted=0.9219
+   LogisticRegression vs RandomForest         p=0.4609  Holm-adjusted=0.9219
+   LogisticRegression vs SVM                  p=0.0781  Holm-adjusted=0.3125
+
+Does anything beat file size alone? (Wilcoxon on AUC, imbalance=cw)
+   LogisticRegression pooled  REDUCED  - SIZE: mean AUC diff +0.036, p=0.0098
+   LogisticRegression pooled  ALL14    - SIZE: mean AUC diff +0.036, p=0.0137
+   LogisticRegression pooled  STATIC   - SIZE: mean AUC diff +0.035, p=0.0098
+   LogisticRegression pooled  PROCESS  - SIZE: mean AUC diff -0.005, p=0.2500
+   LogisticRegression loro    REDUCED  - SIZE: mean AUC diff +0.000, p=0.9453
+   LogisticRegression loro    ALL14    - SIZE: mean AUC diff -0.006, p=0.7422
+   LogisticRegression loro    STATIC   - SIZE: mean AUC diff +0.002, p=0.9453
+   LogisticRegression loro    PROCESS  - SIZE: mean AUC diff -0.026, p=0.0078
+   RandomForest       pooled  REDUCED  - SIZE: mean AUC diff +0.067, p=0.0020
+   RandomForest       pooled  ALL14    - SIZE: mean AUC diff +0.067, p=0.0020
+   RandomForest       pooled  STATIC   - SIZE: mean AUC diff +0.062, p=0.0020
+   RandomForest       pooled  PROCESS  - SIZE: mean AUC diff +0.016, p=0.2754
+   RandomForest       loro    REDUCED  - SIZE: mean AUC diff +0.057, p=0.0156
+   RandomForest       loro    ALL14    - SIZE: mean AUC diff +0.055, p=0.0234
+   RandomForest       loro    STATIC   - SIZE: mean AUC diff +0.055, p=0.0391
+   RandomForest       loro    PROCESS  - SIZE: mean AUC diff +0.018, p=0.5469
+
+======================================================================
+RQ2: GROUPED PERMUTATION IMPORTANCE (AUC drop on held-out repos)
+======================================================================
+repo                                     aiohttp  matplotlib    pip  ...  scikit-learn  scrapy   MEAN
+group                                                                ...                             
+size (loc,sloc,lloc,cc_sum,n_functions)    0.244       0.271  0.258  ...         0.256   0.167  0.227
+churn (commits,added,deleted,authors)      0.020       0.038  0.015  ...         0.008   0.005  0.015
+complexity shape (cc_max,cc_mean)          0.011       0.003 -0.007  ...         0.003  -0.007  0.002
+prior_defects                             -0.006       0.001  0.005  ...         0.004   0.010  0.001
+comments                                  -0.001       0.002  0.002  ...         0.000   0.003  0.000
+fan_out                                    0.005       0.000  0.013  ...         0.010  -0.016 -0.001
+
+[6 rows x 8 columns]
