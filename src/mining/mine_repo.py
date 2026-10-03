@@ -6,19 +6,27 @@ from dotenv import load_dotenv
 from github import Github, Auth
 from radon.complexity import cc_visit
 from radon.raw import analyze
+from github import RateLimitExceededException
 
 from config import REPOS, CLONE_DIR
 
 CUTOFF = "2025-10-01"   # history before this date = features
 END = "2026-10-01"      # fixes between CUTOFF and END = labels
 KEYWORD_RE = re.compile(r"\b(fix(e[sd]?)?|bugs?|bugfix)\b", re.I)
+
+NOISE_RE = re.compile(
+    r"\b(typos?|docs?|documentation|readme|changelog|ci|lint\w*|pre-commit|"
+    r"dependabot|bump|workflow|actions?|release|spelling|flake8|mypy|ruff|format\w*)\b", re.I)
+
+def is_bug_fix(subject):
+    return bool(KEYWORD_RE.search(subject)) and not NOISE_RE.search(subject)
+
 EXCLUDE_RE = re.compile(
     r"(^|/)(tests?|testing|docs?|examples?|benchmarks?|_vendor|vendor|build|scripts|asv_bench)(/|$)"
     r"|(^|/)(setup|conftest)\.py$|(^|/)test_[^/]*\.py$|_test\.py$")
 
 load_dotenv()
-gh = Github(auth=Auth.Token(os.environ["GITHUB_TOKEN"]))
-
+gh = Github(auth=Auth.Token(os.environ["GITHUB_TOKEN"]), timeout=30, retry=None)
 
 def git(path, *args):
     return subprocess.run(["git", "-C", path, *args], capture_output=True, text=True,
@@ -111,13 +119,24 @@ def main(short):
     cache = json.load(open(cache_file)) if os.path.exists(cache_file) else {}
     repo = gh.get_repo(full)
 
+    CLOSE_RE = re.compile(r"\b(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s*:?\s*#(\d+)", re.I)
+
     def labels_of(num):
-        if num not in cache:
-            try:
-                cache[num] = [l.name.lower() for l in repo.get_issue(int(num)).labels]
-            except Exception as e:
-                print(f"    API error for #{num}: {e}")
-                return []
+        if num in cache:
+            return cache[num]
+        try:
+            issue = repo.get_issue(int(num))
+            labs = {l.name.lower() for l in issue.labels}
+            if issue.pull_request is not None:          # it's a PR: follow its closing links
+                for n in set(CLOSE_RE.findall(issue.body or ""))  :
+                    labs |= {l.name.lower() for l in repo.get_issue(int(n)).labels}
+            cache[num] = sorted(labs)
+            
+        except RateLimitExceededException:
+            raise
+        except Exception as e:
+            print(f"    API error for #{num}: {e}")
+            return []
         return cache[num]
 
     cutoff_commit = git(path, "rev-list", "-1", f"--before={CUTOFF}", "HEAD").strip()
@@ -139,7 +158,7 @@ def main(short):
     stats = defaultdict(lambda: {"n_commits": 0, "lines_added": 0, "lines_deleted": 0,
                                  "authors": set(), "prior_defects": 0})
     for c in get_log(path, f"--before={CUTOFF}"):
-        is_fix = bool(KEYWORD_RE.search(c["msg"].split("\n")[0]))
+        is_fix = is_bug_fix(c["msg"].split("\n")[0])
         for a, d, p in c["files"]:
             s = stats[p]
             s["n_commits"] += 1
@@ -155,12 +174,15 @@ def main(short):
     for i, c in enumerate(post, 1):
         refs = sorted(set(re.findall(r"#(\d+)", c["msg"])))[:5]
         verified = any(cfg["bug_label"].lower() in labels_of(n) for n in refs)
-        heuristic = bool(KEYWORD_RE.search(c["msg"].split("\n")[0]))
+        heuristic = is_bug_fix(c["msg"].split("\n")[0])
         for _, _, p in c["files"]:
             if verified:
                 strict.add(p)
             if verified or heuristic:
                 broad.add(p)
+                
+        if i % 25 == 0:
+            json.dump(cache, open(cache_file, "w"))
         if i % 200 == 0:
             print(f"    {i}/{len(post)}")
     os.makedirs(os.path.dirname(cache_file), exist_ok=True)
