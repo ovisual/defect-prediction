@@ -1,0 +1,166 @@
+
+======================================================================
+1. ZEROS AND SKEW (decides log transform)
+======================================================================
+               zeros_%  skew_raw  skew_log1p
+loc               3.17      4.34       -0.72
+sloc              5.07      3.82       -0.69
+lloc              3.88      4.17       -0.56
+comments         18.94      4.34        0.25
+cc_sum           18.70      3.91       -0.28
+cc_max           18.70      2.64       -0.25
+cc_mean          18.70      2.56       -0.27
+n_functions      18.70      3.85        0.11
+fan_out          17.12      1.75       -0.07
+n_commits         0.00      6.49       -0.04
+lines_added       2.14      9.08       -0.69
+lines_deleted     7.45     10.65       -0.45
+n_authors         0.00      3.07        0.05
+prior_defects    26.31      8.78        0.59
+
+Files with no history before cutoff (n_commits == 0): 0
+Identical feature rows: 32
+
+======================================================================
+2. SPEARMAN CORRELATION PAIRS (|r| >= 0.80)
+======================================================================
+loc            sloc             0.968
+sloc           lloc             0.959
+n_commits      n_authors        0.958
+n_commits      lines_deleted    0.956
+lloc           cc_sum           0.950
+cc_sum         n_functions      0.947
+lines_added    lines_deleted    0.943
+loc            lloc             0.940
+loc            lines_added      0.926
+lines_deleted  n_authors        0.914
+sloc           lines_added      0.909
+sloc           cc_sum           0.908
+n_commits      prior_defects    0.908
+lloc           n_functions      0.907
+cc_sum         cc_max           0.901
+lines_deleted  prior_defects    0.881
+lloc           lines_added      0.881
+n_commits      lines_added      0.880
+n_authors      prior_defects    0.876
+loc            cc_sum           0.875
+cc_max         cc_mean          0.864
+sloc           n_functions      0.852
+lloc           cc_max           0.850
+lines_added    n_authors        0.847
+loc            comments         0.837
+lines_added    prior_defects    0.835
+sloc           cc_max           0.831
+loc            n_functions      0.829
+cc_sum         lines_added      0.819
+lloc           comments         0.801
+
+======================================================================
+3. UNIVARIATE POWER (AUC of each feature alone; 0.5 = useless)
+======================================================================
+                 auc  spearman_vs_label
+cc_sum         0.832              0.536
+lloc           0.831              0.533
+sloc           0.822              0.519
+n_functions    0.815              0.509
+loc            0.799              0.481
+lines_added    0.795              0.474
+cc_max         0.791              0.470
+lines_deleted  0.778              0.447
+n_commits      0.773              0.439
+prior_defects  0.770              0.439
+n_authors      0.755              0.411
+fan_out        0.751              0.406
+comments       0.750              0.403
+cc_mean        0.696              0.317
+
+======================================================================
+4. FEATURE CLUSTERS (|r| > ~0.85) AND SUGGESTED REPRESENTATIVE
+======================================================================
+cluster 1: ['cc_max', 'cc_mean']  -> keep: cc_max
+cluster 2: ['n_commits', 'lines_added', 'lines_deleted', 'n_authors', 'prior_defects']  -> keep: lines_added
+cluster 3: ['loc', 'sloc', 'lloc', 'cc_sum', 'n_functions']  -> keep: cc_sum
+cluster 4: ['comments']  -> keep: comments
+cluster 5: ['fan_out']  -> keep: fan_out
+
+======================================================================
+5. VARIANCE INFLATION FACTORS (log1p features; >10 = redundant)
+======================================================================
+cc_sum           143.9
+n_functions       70.2
+loc               34.6
+lines_added       30.4
+n_commits         28.2
+sloc              25.8
+lloc              24.7
+cc_max            21.4
+lines_deleted     18.5
+cc_mean           15.8
+n_authors         13.7
+prior_defects      6.3
+comments           3.3
+fan_out            2.2
+dtype: float64
+
+======================================================================
+6. PER-REPO UNIVARIATE AUC (do the same features work everywhere?)
+======================================================================
+               aiohttp  matplotlib  requests   pip  pytest  poetry  scikit-learn  scrapy
+loc               0.86        0.89      0.82  0.87    0.88    0.88          0.83    0.79
+sloc              0.85        0.90      0.84  0.87    0.89    0.88          0.82    0.77
+lloc              0.89        0.92      0.84  0.86    0.89    0.87          0.82    0.77
+comments          0.83        0.83      0.75  0.81    0.87    0.83          0.80    0.73
+cc_sum            0.86        0.92      0.80  0.84    0.87    0.86          0.82    0.74
+cc_max            0.82        0.87      0.77  0.79    0.83    0.83          0.81    0.68
+cc_mean           0.67        0.74      0.75  0.67    0.70    0.75          0.74    0.57
+n_functions       0.83        0.91      0.80  0.82    0.86    0.81          0.79    0.75
+fan_out           0.77        0.82      0.85  0.81    0.71    0.73          0.78    0.61
+n_commits         0.77        0.87      0.75  0.82    0.83    0.73          0.78    0.72
+lines_added       0.81        0.87      0.77  0.84    0.88    0.84          0.82    0.78
+lines_deleted     0.76        0.85      0.75  0.82    0.86    0.77          0.79    0.75
+n_authors         0.78        0.86      0.75  0.82    0.82    0.72          0.78    0.67
+prior_defects     0.81        0.88      0.77  0.79    0.81    0.74          0.81    0.70
+
+======================================================================
+7. LABEL CHECKS
+======================================================================
+strict vs broad (rows=strict, cols=broad):
+defect_broad     0    1
+defect_strict          
+0              865  151
+1                0  246
+
+Positives (broad) and files per repo:
+                           positives  files
+repo                                       
+aio-libs/aiohttp                  34     59
+matplotlib/matplotlib             58    254
+psf/requests                       4     18
+pypa/pip                          40    152
+pytest-dev/pytest                 37     78
+python-poetry/poetry              52    191
+scikit-learn/scikit-learn         95    336
+scrapy/scrapy                     77    174
+
+======================================================================
+8. BASELINES: pooled stratified 10-fold vs leave-one-repo-out (AUC)
+======================================================================
+                 model  pooled_10fold  LORO_mean  LORO_min
+          LR  loc only          0.798      0.852     0.791
+    LR  n_commits only          0.772      0.784     0.722
+LR  prior_defects only          0.767      0.789     0.700
+            LR  all 14          0.839      0.845     0.731
+            RF  all 14          0.825      0.816     0.727
+
+Leave-one-repo-out AUC per held-out repo:
+              LR  loc only  LR  n_commits only  LR  prior_defects only  LR  all 14  RF  all 14
+aiohttp               0.86                0.77                    0.81        0.86        0.89
+matplotlib            0.89                0.87                    0.88        0.92        0.89
+requests              0.82                0.75                    0.77        0.84        0.73
+pip                   0.87                0.82                    0.79        0.86        0.83
+pytest                0.88                0.83                    0.81        0.87        0.82
+poetry                0.88                0.73                    0.74        0.84        0.83
+scikit-learn          0.83                0.78                    0.81        0.84        0.82
+scrapy                0.79                0.72                    0.70        0.73        0.73
+
+Report saved to results/eda_report.txt
