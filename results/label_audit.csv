@@ -1,0 +1,81 @@
+repo,hash,subject,is_real_bug_fix
+requests,4443b1a847,Fix unintended test extra (#7306),n
+requests,47914226c2,Fix empty netrc entry usage (#7205),y
+requests,6404f345e5,Fix `prepare_body` stream detection for `__getattr__`-based file wrappers (#7433),y
+requests,bc7dd0fc4d,Fix cosmetic header validity parsing regex (#7308),y
+requests,d38495c906,Fix link to AI Policy in CONTRIBUTING.md (#7576),y
+requests,b684dcb9bb,sessions: fix hooks type (#7425),y
+requests,6f205ff422,Fix `_encode_files` detection for `__getattr__`-based file wrappers (#7502),y
+requests,e511bc7277,Fix mutability issues with headers input types (#7431),y
+requests,f0198e6dfc,Fix malformed value parsing for Content-Type (#7309),y
+httpx,def4778d62,Fixed a syntax error in the file upload example (#3692),
+scikit-learn,3258ef8e7e,FIX: handling pandas missing values in HTML repr  (#32341),y
+scikit-learn,b2df9ed131,FIX ColumnTransformer on polars dataframes using transformers with sparse output (#32188),y
+scikit-learn,797e4c6481,FIX classification metrics raise on empty input (#32549),y
+scikit-learn,128c88c4b9,FIX: fix boundary 0-weight edge-case in `_weighted_percentile` (#33127),y
+scikit-learn,951e8dd1e1,FIX Fix pip-tools error in automatic main lock-file update (#33179),n
+scikit-learn,7dc67af040,MNT Fix welcome comment rendering (#34229),n
+scikit-learn,845eaf3b5d,FIX Use check_same_namespace in PCA array API validation (#34493),y
+scikit-learn,0a96fcbffe,FIX normalization in semi_supervised label_propagation (#31924),y
+scikit-learn,02dbd4bbac,FIX linear.cpp: avoid out-of-bound read in n_iter for crammer_singer (#34273),
+scikit-learn,255a5429bd,Fix `log_loss` and `d2_log_loss_score` type promotion mismatch (#33022),y
+scrapy,54da6c88aa,"Deprecate the download_delay spider attribute, and fix the suggested replacement for max_concurrent_requests (",y
+scrapy,59ebb26e60,Fix CaseInsensitiveDict.copy() sharing state with the original (#7783),y
+scrapy,8caaac6ecb,fix(shell): Run IPython prompt in a thread under a running loop (#7816),y
+scrapy,deb7e2861e,Fix _get_tag_name() crash for non-string elem.tag (#7686) (#7687),y
+scrapy,0a4a92e843,Fix image store ACL settings for S3 and GCS (#7614),y
+scrapy,fc4c57e795,Fix the substitution pattern in open_in_browser(). (#7459),y
+scrapy,fada8be1db,Fix Proxy-Authorization handling in BaseStreamingDownloadHandler (#7630),y
+scrapy,9d9950df69,Fix silent data loss in CsvItemExporter (closes #4002) (#7651),y
+scrapy,85c616c5c7,Fix certificate issuer verification on new Twisted. (#7520),y
+scrapy,643243e878,Fix a Windows clock-resolution flake in test_file_path_from_response (#8032),y
+matplotlib,94675048e5,Fix bug of passing a rendered image with premultiplied alpha,y
+matplotlib,eb8cb0ce31,Backport PR #30626: MNT: Fix new F401 unused imports warnings,y
+matplotlib,ee84151238,Fix a bug of ignoring the closing path segment when automatically determining whether to snap (#32018),y
+matplotlib,dcc90918f9,Fix rounding of animation frame size,y
+matplotlib,e64f5eb21e,Precommit fix,y
+matplotlib,578ebdf028,Backport PR #31932: FIX: include axis labels in get_tightbbox when not for_layout_only,y
+matplotlib,f90c147dd4,TST/BUG: Fix _datalim_only semantics and add user-facing relim test,y
+matplotlib,7c7e251444,Fix: Prevent Cursor blitting from erasing overlapping axes,y
+matplotlib,3f42ea8401,FIX: avoid applying dashed patterns to zero-width lines and patches,y
+matplotlib,d28d2ad01e,Fix grammar: 'it would better' -> 'it would be better' in comment,
+pytest,2c555d62fa,"fix approx rel for timedelta: accept float, compute rel * expected (#14466)",y
+pytest,5dfa38541b,Fix recursion traceback test to cover all styles (#14582),y
+pytest,e95a843a5d,Fix pytest.approx to correctly take account Mapping keys order to compare them (#13815),y
+pytest,6762f5a1cd,[truncate explanation] Fix edge case when we truncate due to max_chars,y
+pytest,3fa8d9b15b,Fix off-by-one in trailing assertion diff skipping (#14637) (#14639),y
+pytest,2c8225a071,fix: default for xfail condition is `True`,y
+pytest,0ee0dffffe,update-plugin-list: fix add label command (#14616),y
+pytest,c24de8840a,raises: fix stale loop variable in RaisesGroup error reporting,y
+pytest,fd90f701b3,fix missing type annotations on `makepyfile` and `maketxtfile` methods (#14080),y
+pytest,e26c0ae688,fix #13537: Add support for ExceptionGroup with only Skipped exceptions in teardown (#13741),y
+pip,73ac3f521d,Fix conflict check whitelist ordering (#14075),y
+pip,a19ef050cf,Fix test_trailing_slash_directory_metadata for Python 3.15,y
+pip,21fd005294,Fix broken pipe error and update tests,y
+pip,f57ded6999,Fix list command's table header order,y
+pip,5038549ba8,Fix constraint file open error message,y
+pip,2b8b99522f,"refactor: Fix minor typing of pip._internal.{utils, exceptions, locations, self_outdated_check} (#13622)",y
+pip,2f7ad8caee,-r pylock.toml: fix crash with pip wheel and pip lock,y
+pip,b64b43af2c,fix tests,y
+pip,e7e14261be,Fix description of --no-binary to reflect current behavior (#13967),y
+pip,4c6d7471de,Also fix user site patching in test suite,y
+poetry,9dc193dda6,"fix(add): include pyproject.toml path in ""already present"" message (#10908)",y
+poetry,b760721672,fix: add trailing slash to tag ref prefix in Git._clone (#10799),y
+poetry,e8a05b7aea,fix indeterministic markers (#10667),y
+poetry,a6c33a16d8,fix detection of python and pip executables on Windows and simplify tests (#10645),y
+poetry,e541800643,fix: use set with backtracking for tree circular dependency detection (#10811),y
+poetry,e05e7a68e0,chore: use pytest's new strict mode and fix duplicate tests (#10847),y
+poetry,52fd2873d2,solver: fix KeyError due to orphan decisions (#11008),y
+poetry,62ffee2c98,fix(solver): resolve extra dependencies missing from a reused package's requires (#10987),y
+poetry,d4e9399aff,Fix cache clear example to use PyPI instead of pypi (#10749),n
+poetry,000b7860cf,refactor: fix confusing method name (#11025),y
+aiohttp,dcc02a8c91,[PR #11867/c3b08f73 backport][3.14] Fix flaky test (#11869),y
+aiohttp,c284e2170c,[PR #12603/dbe83fd0 backport][3.14] Fix flaky test_handler_returns_not_response on PyPy via debug-mode fixture,y
+aiohttp,cfcad08dbd,fix: Fix zstd decompression of multi-frame responses (#12290),y
+aiohttp,c97baa30e9,[PR #12787/4eb35886 backport][3.15] fix(connector): resolve race condition in TCPConnector.close() (#12793),y
+aiohttp,c620e623db,Fix Python parser not rejecting LF early (#13136) (#13148),y
+aiohttp,1a7de6fa49,Fix flakey test_tcp_connector_fingerprint_ok by aborting SSL shutdown (#12592),y
+aiohttp,830b942100,Fix ValueError with ClientTimeout(total=0) in TLS connections (#12067),y
+aiohttp,f6f903219a,[PR #12592/1a7de6fa backport][3.13] Fix flakey test_tcp_connector_fingerprint_ok by aborting SSL shutdown (#12,y
+aiohttp,2a35975f49,Fix flakey middleware recursion tests by using server URL (#12571),y
+aiohttp,0e2d3ec48a,Fix server hang on chunked transfer encoding size mismatch (#12119),y

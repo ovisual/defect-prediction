@@ -27,7 +27,6 @@ EXCLUDE_RE = re.compile(
 
 load_dotenv()
 gh = Github(auth=Auth.Token(os.environ["GITHUB_TOKEN"]), timeout=30, retry=None)
-
 def git(path, *args):
     return subprocess.run(["git", "-C", path, *args], capture_output=True, text=True,
                           encoding="utf-8", errors="replace", check=True).stdout

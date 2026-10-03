@@ -1,0 +1,26 @@
+{
+  "features": [
+    "lloc",
+    "cc_max",
+    "comments",
+    "fan_out",
+    "lines_added",
+    "n_authors",
+    "prior_defects"
+  ],
+  "size_features": [
+    "loc"
+  ],
+  "trained_on": [
+    "aio-libs/aiohttp",
+    "matplotlib/matplotlib",
+    "psf/requests",
+    "pypa/pip",
+    "pytest-dev/pytest",
+    "python-poetry/poetry",
+    "scikit-learn/scikit-learn",
+    "scrapy/scrapy"
+  ],
+  "n_files": 1262,
+  "cutoff": "2025-10-01"
+}
