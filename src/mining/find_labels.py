@@ -5,7 +5,7 @@ from github import Github, Auth
 load_dotenv()
 gh = Github(auth=Auth.Token(os.environ["GITHUB_TOKEN"]))
 
-for name in ["matplotlib/matplotlib", "psf/black", "python-poetry/poetry"]:
+for name in ["aio-libs/aiohttp", "fastapi/fastapi", "tornadoweb/tornado"]:
     print(f"\n{name}")
     for label in gh.get_repo(name).get_labels():
         if "bug" in label.name.lower() or "defect" in label.name.lower():

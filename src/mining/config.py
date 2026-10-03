@@ -6,6 +6,7 @@ REPOS = {
     "matplotlib/matplotlib":     {"domain": "data",  "bug_label": "status: confirmed bug"},
     "pytest-dev/pytest":         {"domain": "tools", "bug_label": "type: bug"},
     "pypa/pip":                  {"domain": "tools", "bug_label": "type: bug"},
-    "psf/black":                 {"domain": "tools", "bug_label": "T: bug"},
+    "python-poetry/poetry":      {"domain": "tools", "bug_label": "kind/bug"},
+    "aio-libs/aiohttp":          {"domain": "web",   "bug_label": "bug"},
 }
 CLONE_DIR = r"C:\repos"
